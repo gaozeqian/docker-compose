@@ -3,16 +3,14 @@ services:
     image: rabbitmq:4-management
     container_name: rabbitmq-4
     restart: unless-stopped
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: P@ssw0rd123
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
     ports:
       - "5672:5672" # AMQP 端口
       - "15672:15672" # 管理插件 Web UI 端口
     volumes:
-      - data:/var/lib/rabbitmq
+      - rabbitmq-data:/var/lib/rabbitmq
 
 volumes:
-  data:
+  rabbitmq-data:

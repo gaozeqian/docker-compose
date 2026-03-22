@@ -1,0 +1,51 @@
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:cuda
+    container_name: openwebui
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=my-secret-key
+      - DATABASE_URL=postgresql://openwebui_user:password@postgres:5432/openwebui
+      - DATABASE_POOL_SIZE=15
+      - DATABASE_POOL_MAX_OVERFLOW=20
+      - VECTOR_DB=pgvector
+      - PGVECTOR_DB_URL=postgresql://openwebui_user:password@postgres:5432/openwebui
+      - REDIS_URL=redis://:password@redis:6379/0
+      - WEBSOCKET_MANAGER=redis
+      - ENABLE_WEBSOCKET_SUPPORT=true
+      - STORAGE_PROVIDER=s3
+      - S3_ACCESS_KEY_ID=user
+      - S3_SECRET_ACCESS_KEY=password
+      - S3_ENDPOINT_URL=http://minio:9000
+      - S3_BUCKET_NAME=openwebui
+      - CONTENT_EXTRACTION_ENGINE=tika
+      - TIKA_SERVER_URL=http://tika:9998
+      - RAG_EMBEDDING_ENGINE=ollama
+      - ENABLE_OTEL=true
+      - ENABLE_OTEL_TRACES=true
+      - ENABLE_OTEL_METRICS=true
+      - OTEL_EXPORTER_OTLP_INSECURE=true
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana:4317
+      - OTEL_SERVICE_NAME=openwebui
+    volumes:
+      - openwebui-data:/app/backend/data
+    networks:
+      - openwebui-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+
+volumes:
+  openwebui-data:
+
+networks:
+  openwebui-network:
+    external: true
+    name: shared-network

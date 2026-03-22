@@ -1,0 +1,25 @@
+services:
+  redis:
+    image: redis:8
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - redis-network
+    command: >
+      redis-server
+      --requirepass password
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+
+volumes:
+  redis-data:
+
+networks:
+  redis-network:
+    external: true
+    name: shared-network

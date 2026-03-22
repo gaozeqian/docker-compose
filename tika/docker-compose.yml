@@ -1,0 +1,14 @@
+services:
+  tika:
+    image: apache/tika:latest
+    container_name: tika
+    restart: unless-stopped
+    ports:
+      - "9998:9998"
+    networks:
+      - tika-network
+
+networks:
+  tika-network:
+    external: true
+    name: shared-network

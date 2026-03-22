@@ -3,15 +3,12 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     restart: unless-stopped
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     ports:
-      - "11433:11434"
+      - "11434:11434"
     volumes:
-      - data:/root/.ollama
-    environment:
-      - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_ORIGINS=*
+      - ollama-data:/root/.ollama
+    networks:
+      - ollama-network
     deploy:
       resources:
         reservations:
@@ -21,4 +18,9 @@ services:
               capabilities: [ gpu ]
 
 volumes:
-  data:
+  ollama-data:
+
+networks:
+  ollama-network:
+    external: true
+    name: shared-network
