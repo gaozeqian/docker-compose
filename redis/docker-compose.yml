@@ -7,19 +7,12 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
-    networks:
-      - redis-network
     command: >
       redis-server
-      --requirepass password
+      --requirepass P@88w0rd
       --appendonly yes
       --maxmemory 256mb
       --maxmemory-policy allkeys-lru
 
 volumes:
   redis-data:
-
-networks:
-  redis-network:
-    external: true
-    name: shared-network
