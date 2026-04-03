@@ -1,17 +1,17 @@
 services:
-  mongodb:
+  mongo:
     image: mongo:8
-    container_name: mongodb
+    container_name: mongo
     restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
-      - mongodb-data:/data/db
-      - mongodb-config:/data/configdb
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongo
       - MONGO_INITDB_ROOT_PASSWORD=P@88w0rd
 
 volumes:
-  mongodb-data:
-  mongodb-config:
+  mongo-data:
+  mongo-config:
