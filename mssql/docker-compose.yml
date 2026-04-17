@@ -1,0 +1,16 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest  # 如需 SQL Server 2019, 可将 '2022-latest' 改为 '2019-latest'
+    container_name: mssql-server
+    environment:
+      - ACCEPT_EULA=Y                                    # 接受许可协议，必须设置
+      - MSSQL_SA_PASSWORD=YourStrong!Password123        # 设置SA用户密码，至少8位，需包含大小写字母、数字和特殊字符
+      - MSSQL_PID=Developer                              # 指定产品版本（Developer、Express、Standard、Enterprise等）
+    ports:
+      - "1433:1433"                                      # 将宿主机的1433端口映射到容器的1433端口
+    volumes:
+      - mssql-data:/var/opt/mssql                        # 持久化数据库文件
+    restart: unless-stopped                              # 设置容器自动重启策略
+
+volumes:
+  mssql-data:
