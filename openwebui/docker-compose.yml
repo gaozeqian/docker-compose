@@ -30,7 +30,7 @@ services:
       - TIKA_SERVER_URL=http://host.docker.internal:9998
       # Embeddings
       - RAG_EMBEDDING_ENGINE=ollama
-      - RAG_EMBEDDING_MODEL=nomic-embed-text-v2-moe
+      - RAG_EMBEDDING_MODEL=embeddinggemma
     deploy:
       resources:
         reservations:
