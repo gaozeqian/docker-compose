@@ -31,6 +31,9 @@ services:
       # Embeddings
       - RAG_EMBEDDING_ENGINE=ollama
       - RAG_EMBEDDING_MODEL=qwen3-embedding
+      # playwright
+      - WEB_LOADER_ENGINE=playwright
+      - PLAYWRIGHT_WS_URL=ws://host.docker.internal:6000
 
 volumes:
   openwebui-data:
