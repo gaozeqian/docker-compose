@@ -1,0 +1,26 @@
+services:
+  hermes:
+    image: nousresearch/hermes-agent:latest
+    container_name: hermes
+    restart: unless-stopped
+    command: gateway run
+    ports:
+      - "8642:8642"   # gateway API
+      - "9119:9119"   # dashboard（仅在 HERMES_DASHBOARD=1 时生效）
+    volumes:
+      - ~/.hermes:/opt/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - API_SERVER_ENABLED=true
+      - API_SERVER_HOST=0.0.0.0
+      - API_SERVER_KEY="$(openssl rand -hex 32)"
+      - API_SERVER_CORS_ORIGINS='*'
+      - HERMES_DASHBOARD=1
+      - HERMES_DASHBOARD_HOST=0.0.0.0
+      - HERMES_DASHBOARD_INSECURE=1
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
