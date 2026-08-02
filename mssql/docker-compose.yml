@@ -1,7 +1,7 @@
 services:
   mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest  # 如需 SQL Server 2019, 可将 '2022-latest' 改为 '2019-latest'
-    container_name: mssql-server
+    container_name: mssql
     environment:
       - ACCEPT_EULA=Y                                    # 接受许可协议，必须设置
       - MSSQL_SA_PASSWORD=P@88w0rd                       # 设置SA用户密码，至少8位，需包含大小写字母、数字和特殊字符

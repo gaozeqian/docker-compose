@@ -9,7 +9,7 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_USER: rabbit
       RABBITMQ_DEFAULT_PASS: P@88w0rd
 
 volumes:
